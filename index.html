@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio de Ksaier</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Mise en page : en-tête, héros typographique sur quadrillage, puis sections à deux colonnes (étiquette à gauche, contenu à droite). */
+:root {
+  --bg: #EFF3F5;
+  --surface: #FFFFFF;
+  --fg: #11202A;
+  --muted: #51626E;
+  --line: #CBD6DC;
+  --accent: #0B6E8E;
+  --accent-fg: #FFFFFF;
+  --accent-soft: #D9EEF5;
+  --grid: rgba(17, 32, 42, 0.06);
+  --font-display: "Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0C1419;
+    --surface: #131E25;
+    --fg: #E6EEF2;
+    --muted: #93A5B0;
+    --line: #25353F;
+    --accent: #5FC9E8;
+    --accent-fg: #06222C;
+    --accent-soft: #12303B;
+    --grid: rgba(230, 238, 242, 0.06);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0C1419;
+  --surface: #131E25;
+  --fg: #E6EEF2;
+  --muted: #93A5B0;
+  --line: #25353F;
+  --accent: #5FC9E8;
+  --accent-fg: #06222C;
+  --accent-soft: #12303B;
+  --grid: rgba(230, 238, 242, 0.06);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+img { max-width: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.6 var(--font-body);
+  padding-block: 0 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1040px; margin-inline: auto; }
+h1, h2, h3, p, ul, dl, dd { margin: 0; }
+h1, h2, h3 { text-wrap: balance; }
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* En-tête */
+.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-block: 20px; }
+.brand { font-family: var(--font-display); font-weight: 800; font-size: 1.15rem; letter-spacing: -0.02em; }
+.nav { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 0.8rem; }
+.nav a { color: var(--fg); text-decoration: none; }
+.nav a:hover { color: var(--accent); }
+
+/* Boutons */
+.btn {
+  font: 600 0.95rem/1 var(--font-body);
+  padding: 12px 18px;
+  border-radius: 4px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: var(--accent-fg);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn:hover { filter: brightness(1.08); }
+.btn.ghost { background: transparent; color: var(--fg); border-color: var(--line); }
+.btn.ghost:hover { border-color: var(--accent); color: var(--accent); filter: none; }
+.btn.small { padding: 8px 12px; font-size: 0.85rem; }
+
+/* Héros */
+.hero {
+  border: 1px solid var(--line);
+  padding: clamp(32px, 7vw, 72px) clamp(20px, 5vw, 56px);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 32px 32px;
+  display: grid;
+  gap: 28px;
+}
+.kicker { font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.4rem, 9vw, 5.5rem);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  overflow-wrap: anywhere;
+}
+.lead { max-width: 34em; font-size: clamp(1.05rem, 2.4vw, 1.3rem); color: var(--fg); }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* Sections */
+.section {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 24px 48px;
+  padding-block: 56px;
+  border-top: 1px solid var(--line);
+  scroll-margin-top: 16px;
+}
+.hero + .section { margin-top: 56px; }
+.label { font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); padding-top: 6px; }
+.section h2 { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.6rem, 4vw, 2.3rem); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 16px; }
+.prose { max-width: 40em; color: var(--fg); }
+.prose + .prose { margin-top: 12px; }
+@media (max-width: 720px) {
+  .section { grid-template-columns: minmax(0, 1fr); gap: 12px; padding-block: 40px; }
+  .label { padding-top: 0; }
+}
+
+/* Compétences */
+.skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 8px; }
+.skill { background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 18px; min-width: 0; }
+.skill h3 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 6px; }
+.skill p { color: var(--muted); font-size: 0.95rem; }
+.langs { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 24px; padding: 0; list-style: none; }
+.langs li, .tags li { font-family: var(--font-mono); font-size: 0.78rem; padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--accent-soft); color: var(--fg); }
+
+/* Projets */
+.proj-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+.count { font-family: var(--font-mono); font-size: 0.85rem; color: var(--muted); }
+.empty { border: 2px dashed var(--line); border-radius: 4px; padding: 40px 24px; display: grid; gap: 8px; }
+.empty strong { font-family: var(--font-display); font-size: 1.2rem; }
+.empty p { color: var(--muted); max-width: 32em; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; padding: 0; list-style: none; }
+.cards:empty { display: none; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 20px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.card-title { font-family: var(--font-display); font-weight: 800; font-size: 1.25rem; letter-spacing: -0.02em; overflow-wrap: anywhere; }
+.card-desc { color: var(--muted); overflow-wrap: anywhere; }
+.tags { display: flex; gap: 6px; flex-wrap: wrap; padding: 0; list-style: none; margin: 0; }
+.card-actions { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-top: 4px; }
+
+/* Formulaires */
+.form { background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 20px; display: grid; gap: 16px; margin-bottom: 20px; max-width: 640px; }
+.field { display: grid; gap: 6px; }
+.field label { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.field input, .field textarea {
+  font: inherit;
+  width: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 10px 12px;
+}
+.field textarea { min-height: 96px; resize: vertical; }
+.field input:focus-visible, .field textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+.form-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.error { color: var(--fg); font-size: 0.9rem; border-left: 3px solid var(--accent); padding-left: 10px; }
+
+/* Contact */
+.contact { display: grid; gap: 0; max-width: 640px; margin-bottom: 20px; }
+.contact div { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 16px; padding-block: 12px; border-bottom: 1px solid var(--line); }
+.contact dt { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; padding-top: 2px; }
+.contact dd { overflow-wrap: anywhere; user-select: all; }
+.contact .none { color: var(--muted); user-select: none; }
+
+.foot { border-top: 1px solid var(--line); padding-top: 24px; font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); display: flex; gap: 8px 24px; flex-wrap: wrap; justify-content: space-between; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <span class="brand">Ksaier Monia</span>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="#profil">Profil</a>
+      <a href="#competences">Compétences</a>
+      <a href="#projets">Projets</a>
+      <a href="#contact">Contact</a>
+      <button class="btn ghost small" id="theme-toggle" type="button">Mode sombre</button>
+    </nav>
+  </header>
+
+  <section class="hero" aria-labelledby="nom">
+    <p class="kicker">Génie logiciel et systèmes d'information · 3e année</p>
+    <h1 id="nom">Ksaier Monia</h1>
+    <p class="lead">Étudiante en génie logiciel et systèmes d'information. Je m'intéresse au développement web et mobile, aux données et à l'intelligence artificielle.</p>
+    <div class="cta">
+      <a class="btn" href="#projets">Voir les projets</a>
+      <a class="btn ghost" href="#contact">Me contacter</a>
+    </div>
+  </section>
+
+  <section class="section" id="profil">
+    <p class="label">Profil</p>
+    <div>
+      <h2>Étudiante à l'Institut Supérieur d'Informatique du Kef</h2>
+      <p class="prose">Je suis en troisième année de génie logiciel et systèmes d'information. Ma formation couvre le génie logiciel, le développement web et mobile, les bases de données et le machine learning.</p>
+      <p class="prose">Je prépare mon projet de fin d'études, un projet de développement web qui intègre l'IA.</p>
+    </div>
+  </section>
+
+  <section class="section" id="competences">
+    <p class="label">Compétences</p>
+    <div>
+      <h2>Ce que j'étudie et pratique</h2>
+      <div class="skills">
+        <div class="skill"><h3>Développement web et mobile</h3><p>Conception d'interfaces et d'applications web et mobiles, du front-end au back-end.</p></div>
+        <div class="skill"><h3>Bases de données</h3><p>Modélisation, requêtes et conception de schémas pour stocker et exploiter les données.</p></div>
+        <div class="skill"><h3>Machine learning</h3><p>Apprentissage automatique et intégration de modèles d'IA dans des applications.</p></div>
+        <div class="skill"><h3>Génie logiciel et systèmes d'information</h3><p>Analyse des besoins, modélisation, conception, tests et travail en équipe sur un projet logiciel.</p></div>
+      </div>
+      <ul class="langs" aria-label="Langues">
+        <li>Arabe</li>
+        <li>Français</li>
+        <li>Anglais</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="projets">
+    <p class="label">Projets</p>
+    <div>
+      <h2>Mes projets</h2>
+      <div class="proj-head">
+        <span class="count" id="proj-count">Aucun projet</span>
+      </div>
+
+      <div class="empty" id="proj-empty">
+        <strong>Aucun projet pour l'instant</strong>
+        <p>Les projets seront publiés ici.</p>
+      </div>
+      <ul class="cards" id="proj-list"></ul>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <p class="label">Contact</p>
+    <div>
+      <h2>Me contacter</h2>
+      <dl class="contact" id="contact-list"></dl>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>Ksaier Monia · Institut Supérieur d'Informatique, Le Kef</span>
+    <span>Portfolio · 2026</span>
+  </footer>
+</div>
+
+<script>
+/* ============================================================
+   VOS PROJETS
+   Pour ajouter un projet, copiez un bloc { ... }, retirez les
+   deux "//" au début de chaque ligne, puis placez-le entre les
+   crochets. Séparez les projets par une virgule.
+   ============================================================ */
+window.PROJETS = [
+  // {
+  //   titre: "Nom du projet",
+  //   description: "Une ou deux phrases sur le projet.",
+  //   technologies: ["HTML", "CSS", "JavaScript"],
+  //   lien: "https://github.com/ksaiermonia99-pixel/nom-du-depot"
+  // },
+];
+</script>
+
+<script>
+(function () {
+  var root = document.documentElement;
+
+  function read(k) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : null; } catch (e) { return null; } }
+  function write(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function safeUrl(u) {
+    try { var x = new URL(u); return (x.protocol === 'https:' || x.protocol === 'http:') ? x.href : null; } catch (e) { return null; }
+  }
+
+  /* Thème (préférence du visiteur) */
+  var tbtn = document.getElementById('theme-toggle');
+  var savedTheme = read('portfolio-theme');
+  if (savedTheme === 'dark' || savedTheme === 'light') root.setAttribute('data-theme', savedTheme);
+  function isDark() {
+    var t = root.getAttribute('data-theme');
+    if (t) return t === 'dark';
+    return !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  }
+  function syncTheme() { tbtn.textContent = isDark() ? 'Mode clair' : 'Mode sombre'; }
+  tbtn.addEventListener('click', function () {
+    var next = isDark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    write('portfolio-theme', next);
+    syncTheme();
+  });
+  syncTheme();
+
+  /* Contact */
+  var CONTACT = [
+    ['E-mail', 'monia.ksaier@isikef.u-jendouba.tn', false],
+    ['GitHub', 'https://github.com/ksaiermonia99-pixel', true],
+    ['LinkedIn', 'https://www.linkedin.com/in/monia-ksaier-183806388', true]
+  ];
+  var cList = document.getElementById('contact-list');
+  CONTACT.forEach(function (c) {
+    var row = el('div');
+    row.appendChild(el('dt', null, c[0]));
+    var dd = el('dd');
+    if (c[2] && safeUrl(c[1])) {
+      var a = el('a', null, c[1]);
+      a.href = safeUrl(c[1]); a.target = '_blank'; a.rel = 'noopener noreferrer';
+      dd.appendChild(a);
+    } else {
+      dd.textContent = c[1];
+    }
+    row.appendChild(dd);
+    cList.appendChild(row);
+  });
+
+  /* Projets (liste définie dans le bloc PROJETS en haut du fichier) */
+  var projets = (window.PROJETS || []);
+  var list = document.getElementById('proj-list');
+  var empty = document.getElementById('proj-empty');
+  var count = document.getElementById('proj-count');
+
+  empty.hidden = projets.length > 0;
+  count.textContent = projets.length === 0 ? 'Aucun projet' : projets.length + (projets.length > 1 ? ' projets' : ' projet');
+
+  projets.forEach(function (p) {
+    var card = el('li', 'card');
+    card.appendChild(el('h3', 'card-title', p.titre || ''));
+    if (p.description) card.appendChild(el('p', 'card-desc', p.description));
+    if (p.technologies && p.technologies.length) {
+      var ul = el('ul', 'tags');
+      p.technologies.forEach(function (t) { ul.appendChild(el('li', null, String(t))); });
+      card.appendChild(ul);
+    }
+    var u = p.lien ? safeUrl(p.lien) : null;
+    if (u) {
+      var row = el('div', 'card-actions');
+      var a = el('a', null, 'Voir le projet');
+      a.href = u; a.target = '_blank'; a.rel = 'noopener noreferrer';
+      row.appendChild(a);
+      card.appendChild(row);
+    }
+    list.appendChild(card);
+  });
+})();
+</script>
+</body>
+</html>
